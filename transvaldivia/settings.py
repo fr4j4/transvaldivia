@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y)c*qd-!n!==-u3#vjt3%-od@mt8lu=+%ud)h5d9kn3-)rp!(j'
+SECRET_KEY = 'p!n#$)kjc74qs!uxhlm5w(0pe1621v6(3l$ugu0#*77^y)_nzw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -72,16 +72,13 @@ WSGI_APPLICATION = 'transvaldivia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-#Configurado para usar mysql
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': 'my.cnf',
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 
 # Password validation
