@@ -1,0 +1,21 @@
+1- instalar pymsql
+	
+	sudo python3 -m pip install pymysql
+
+2 - importar pymsql en el archivo settings.py 
+	import pymysql
+
+3 - agregar pymysql.install_as_MySQLdb() en el archivo settings.py
+
+4 - Cambiar la configuracion de la base de datos en settings.py a:
+
+	DATABASES = {
+	    'default': {
+	        'ENGINE': 'django.db.backends.mysql',
+	        'NAME': 'NOMBRE_BASE_DE_DATOS',
+	        'USER': 'root',
+	        'PASSWORD': 'root',
+	        'HOST': 'localhost',
+	    }
+	}
+
