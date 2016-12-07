@@ -1,3 +1,10 @@
+user:administrador
+pass:macoy123
+
+eliminar super-usuario
+$ from django.contrib.auth.models import User
+$ User.objects.get(username="joebloggs", is_superuser=True).delete()
+
 1- instalar pymsql
 	
 	sudo python3 -m pip install pymysql
