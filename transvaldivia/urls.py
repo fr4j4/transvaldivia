@@ -20,5 +20,5 @@ from principal import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.indice, name='indice'),
-    url(r'^principal/',include('principal.urls')),
+    url(r'^principal/',include('principal.urls',namespace='principal')),
 ]
