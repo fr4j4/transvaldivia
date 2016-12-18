@@ -13,7 +13,7 @@ class recorrido(models.Model):
 class tipo_vehiculo(models.Model):
 	nombre=models.CharField(max_length=200)
 	class Meta:
-		verbose_name='tipo_vehiculo'
+		verbose_name='tipo de vehiculo'
 		verbose_name_plural='tipos de vehiculo'
 	def __str__(self):
 		return self.tipo_vehiculo
