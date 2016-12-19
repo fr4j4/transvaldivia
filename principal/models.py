@@ -1,4 +1,7 @@
 from django.db import models
+
+from geoposition.fields import GeopositionField#gmaps
+
 # Create your models here.
 class tipo_vehiculo(models.Model):
 	nombre=models.CharField(max_length=200)
@@ -10,10 +13,11 @@ class tipo_vehiculo(models.Model):
 
 class paradero(models.Model):
 	nombre=models.CharField(max_length=200)
-	latitud=models.FloatField()
-	longitud=models.FloatField()
+	pos = GeopositionField()
+	#latitud=models.FloatField()
+	#longitud=models.FloatField()
 	def __str__(self):
-		return self.nombre+" ("+str(self.latitud)+" , "+str(self.longitud)+")"
+		return self.nombre
 
 class recorrido(models.Model):
 	nombre= models.CharField(max_length=200)

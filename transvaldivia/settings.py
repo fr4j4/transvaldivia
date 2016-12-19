@@ -25,7 +25,7 @@ SECRET_KEY = 'p!n#$)kjc74qs!uxhlm5w(0pe1621v6(3l$ugu0#*77^y)_nzw'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*',]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'principal',
+    "geoposition",
 ]
 
 MIDDLEWARE = [
@@ -123,3 +124,24 @@ USE_TZ = True
 
 STATIC_ROOT = ''
 STATIC_URL = '/static/'
+
+GEOPOSITION_GOOGLE_MAPS_API_KEY ='AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg'
+#GEOPOSITION_MAP_WIDGET_HEIGHT=400;
+
+GEOPOSITION_MAP_OPTIONS = {
+    'center': {'lat': -39.832827827174356, 'lng': -73.25139007201864},
+    #'position': {'lat': -39.832827827174356, 'lng': -73.25139007201864},
+    'zoom': 18,
+    'mapTypeId':'hybrid',
+    
+#    hybrid  This map type displays a transparent layer of major streets on satellite images.
+#    roadmap This map type displays a normal street map.
+#    satellite   This map type displays satellite images.
+#    terrain This map type displays maps with physical features such as terrain and vegetation.
+
+}
+
+GEOPOSITION_MARKER_OPTIONS = {
+    'cursor': 'move',
+    'position': {'lat': -39.832827827174356, 'lng': -73.25139007201864},
+}

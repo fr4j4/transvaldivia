@@ -13,6 +13,7 @@ class recorrido_paraderoInline(admin.TabularInline):
 
 class paraderoAdmin(admin.ModelAdmin):
 	inlines=(recorrido_paraderoInline,)
+
 class recorridoAdmin(admin.ModelAdmin):
 	inlines=(recorrido_paraderoInline,)
 
