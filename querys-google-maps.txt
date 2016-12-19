@@ -1,0 +1,16 @@
+https://maps.googleapis.com/maps/api/place/nearbysearch/json?
+location=-39.8350246,-73.4459408
+&sensor=true
+&rankby=distance
+&types=bus_station
+&key=AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg
+
+
+-----
+
+https://maps.googleapis.com/maps/api/place/textsearch/json
+?
+types=bus_station
+&location=-39.8350246,-73.4459408
+&radius=50000
+&key=AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg
