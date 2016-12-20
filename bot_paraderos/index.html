@@ -7,68 +7,73 @@
 	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg&libraries=places&callback=init"></script-->
 
-
-
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 	<div class="container">
-		<div class="well well-sm">
+		<div class="well well-lg-12">
 			<legend>Bot paraderos</legend>
-			<div class="col col-lg-12">
-				
-			<div class="col col-lg-6">
-				Posicion: <span id="bot_position">0</span>
-				<div>
-					<div id="map_hover">
-						<img src="img/aim.png">
+			<div class="row">		
+				<div class="col col-lg-6">
+					Posicion: <span id="bot_position">0</span>
+					<div>
+						<div id="map_hover">
+							<img src="img/aim.png">
+						</div>
+						<div id="map"></div>
 					</div>
-					<div id="map"></div>
+					<div id="map2"></div>
 				</div>
-				<div id="map2"></div>
+
+				<div class="col col-lg-6">
+					<div class="col-lg-12">
+						<div id="output_panel" class="panel panel-default">
+							<button onclick="output_clear()" class="btn btn-sm btn-info">limpiar salida</button>
+						  	<div id="output" class="panel-body"></div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="col-lg-7">
+							<input id="slider" type="range" min="800" max="10000" step="10" value="3500" />
+						</div>
+						<label class="col-lg-5">Velocidad de búsqueda</label>
+					</div>
+				</div>				
 			</div>
-			<div class="col col-lg-6">
-				<div id="output_panel" class="panel panel-default">
-					<button onclick="output_clear()" class="btn btn-sm btn-info">limpiar salida</button>
-				  	<div id="output" class="panel-body"></div>
-				</div>
-				<div class="col-lg-12">
-					<div class="col-lg-8">
-						<input id="slider" type="range" min="800" max="10000" step="10" />
-					</div>
-					<label>Velocidad de búsqueda</label>
-				</div>
-			<div id="progress_parent" class="col col-lg-12">
-					<div style="display:none" id="progress_container" class="progress">
-					  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0"
-					  aria-valuemin="0" aria-valuemax="100" style="width:70%">
-					    <span id="progress_value"></span>
+		
+			
+			<div class="row">
+					<div class="progress">
+					  <div id='progress' class="progress-bar progress-bar-striped active" role="progressbar"
+					  aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+					    <span id="progress_value">0</span>%
 					  </div>
 					</div>
-					
-						<button onclick="run()" id="start_button" class="btn btn-primary">Buscar paraderos!</button>
+				<div class="col col-lg-12">
+					<button onclick="run()" id="start_button" class="btn btn-primary">Buscar paraderos!</button>
+				</div>
+				<div class="col col-lg-12">
+					<a class="btn btn-success" href="" id="download_link">Descargar archivo generado!</a>
+				</div>
 			</div>
-			</div>
-			<div class="col col-lg-6">
-				<a class="btn btn-success" href="" id="download_link">Descargar archivo generado!</a>
-			</div>
-			<div>
-			</div>
-		</div>
-			<h3>Paraderos encontrados: <span id="contador_paraderos"></span></h3>
-			<div class="table-responsive">
-				<table id="table" class="table table-striped">
-					<thead>
-						<th></th>
-						<th>ID</th>
-						<th>Nombre</th>
-						<th>Lat</th>
-						<th>Long</th>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+
+			<div class="col col-lg-12"><h3>Paraderos encontrados: <span id="contador_paraderos"></span></h3></div>
+			
+			<div class="col col-lg-12">
+				<div class="table-responsive">
+					<table id="table" class="table table-striped">
+						<thead>
+							<th></th>
+							<th>ID</th>
+							<th>Nombre</th>
+							<th>Lat</th>
+							<th>Long</th>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -79,7 +84,7 @@
 			init();
 		});
 		$('#slider').slider().on('change',function(){
-			var val=$('#slider').slider().val()/5000000.0;
+			var val=$('#slider').slider().val()/500000.0;
 			//d_lat=val;
 			d_lng=val;
 			console.log(val);

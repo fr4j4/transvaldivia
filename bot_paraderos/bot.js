@@ -29,7 +29,7 @@ var bot_left ={lat:-39.856902,lng:-73.269065};
 var top_right={lat:-39.803796,lng:-73.182377};
 var bot_right={lat:-39.856902,lng:-73.182377};
 var timeout=100;
-var d_lat=0.000125,d_lng=0.00025;
+var d_lat=0.00125,d_lng=0.00025;
 var sentido_lat=-1;
 var sentido_lng=1;
 var finished=false;
@@ -75,13 +75,16 @@ function run(){
 	perc_x=perc_x.toFixed(2);
 	perc_y=(1-(position.lat()-bot_left.lat)/(top_left.lat- bot_left.lat))*100;
 	
+
+	if(perc_y<0){perc_y=0;}
+	if(perc_y>100){perc_y=100;}
 	perc_y=perc_y.toFixed(2);
 
 	perc_all+=perc_y*(perc_x/1000.0);
 	//console.log(perc_all);
 
 	$('#progress_value').html(perc_y);
-	$('#progress').attr('aria-valuenow', perc_y).css('width',perc_y);
+	$('#progress').attr('aria-valuenow', perc_y).css('width',perc_y+"%");
 
 	map.panTo(position);
 	$('#bot_position').html('('+position.lat()+","+position.lng()+")");

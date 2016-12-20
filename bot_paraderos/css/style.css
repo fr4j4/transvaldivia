@@ -26,9 +26,16 @@
 	
 	z-index: 2;
 }
+
+
+
+#progress_value{
+	margin-right: 0em;
+}
 #map_hover>img{
 	height: 100px;
 }
+
 #download_link{
 	display:none;
 }
