@@ -29,7 +29,7 @@ var bot_left ={lat:-39.856902,lng:-73.269065};
 var top_right={lat:-39.803796,lng:-73.182377};
 var bot_right={lat:-39.856902,lng:-73.182377};
 var timeout=100;
-var d_lat=0.0025,d_lng=0.025;
+var d_lat=0.00125,d_lng=0.00125;
 var sentido_lat=-1;
 var sentido_lng=1;
 var finished=false;
@@ -67,6 +67,7 @@ function run(){
 	if(perc_x>100){perc_x=100;}
 	perc_x=perc_x.toFixed(2);
 	perc_y=(1-(position.lat()-bot_left.lat)/(top_left.lat- bot_left.lat))*100;
+	perc_y=perc_y.toFixed(2);
 
 	perc_all+=perc_y*(perc_x/1000.0);
 	//console.log(perc_all);
@@ -76,7 +77,7 @@ function run(){
 	if(iteraciones>=10){iteraciones=0;}
 	$('#contador_paraderos').html(found);
 	log("Buscando paraderos: ");
-	log(perc_y+"% ,"+perc_x+" %");
+	log(perc_y+"%.");
 	//log(position);
 	var request={
 		location:position,
@@ -167,7 +168,9 @@ function initMap(){
 	log("inicializado mapa...");
 	map = new google.maps.Map(document.getElementById('map'), {
 	    center: {lat: top_left.lat, lng:top_left.lng},// -73.2505124},
-	    zoom: 14,
+	    zoom: 17,
+	    maxZoom:18,
+	    minZoom:15,
 	    mapTypeId: google.maps.MapTypeId.HYBRID,
   	});
 
