@@ -12,6 +12,7 @@ class tipo_vehiculo(models.Model):
 		return self.tipo_vehiculo
 
 class paradero(models.Model):
+	google_id=models.CharField(max_length=250,blank=True,unique=True)
 	nombre=models.CharField(max_length=200)
 	pos = GeopositionField()
 	#latitud=models.FloatField()

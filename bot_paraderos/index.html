@@ -4,6 +4,7 @@
 	<title></title>
 	<script type="text/javascript" src="bot.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg&libraries=places&callback=init"></script-->
 
 
@@ -32,7 +33,13 @@
 					<button onclick="output_clear()" class="btn btn-sm btn-info">limpiar salida</button>
 				  	<div id="output" class="panel-body"></div>
 				</div>
-			<div class="col col-lg-12">
+				<div class="col-lg-12">
+					<div class="col-lg-8">
+						<input id="slider" type="range" min="800" max="10000" step="10" />
+					</div>
+					<label>Velocidad de búsqueda</label>
+				</div>
+			<div id="progress_parent" class="col col-lg-12">
 					<div style="display:none" id="progress_container" class="progress">
 					  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0"
 					  aria-valuemin="0" aria-valuemax="100" style="width:70%">
@@ -41,7 +48,6 @@
 					</div>
 					
 						<button onclick="run()" id="start_button" class="btn btn-primary">Buscar paraderos!</button>
-					
 			</div>
 			</div>
 			<div class="col col-lg-6">
@@ -71,6 +77,12 @@
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			init();
+		});
+		$('#slider').slider().on('change',function(){
+			var val=$('#slider').slider().val()/5000000.0;
+			//d_lat=val;
+			d_lng=val;
+			console.log(val);
 		});
 	</script>
 </body>

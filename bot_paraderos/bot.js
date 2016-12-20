@@ -29,7 +29,7 @@ var bot_left ={lat:-39.856902,lng:-73.269065};
 var top_right={lat:-39.803796,lng:-73.182377};
 var bot_right={lat:-39.856902,lng:-73.182377};
 var timeout=100;
-var d_lat=0.000125,d_lng=0.25;
+var d_lat=0.000125,d_lng=0.00025;
 var sentido_lat=-1;
 var sentido_lng=1;
 var finished=false;
@@ -196,7 +196,7 @@ function generateFile(){
 		var separador=";";
 		var lat=paraderos[key].geometry.location.lat();
 		var lng=paraderos[key].geometry.location.lng();
-		var linea=""+paraderos[key].name+separador+lat+separador+lng+"\n";
+		var linea=""+paraderos[key].id+separador+paraderos[key].name+separador+lat+separador+lng+"\n";
 		f+=linea;
 	}
 	var a = document.getElementById("download_link");
@@ -205,3 +205,4 @@ function generateFile(){
 	a.download = "paraderos.txt";
 	log("Archivo generado, listo para descargar");
 }
+
