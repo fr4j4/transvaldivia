@@ -28,25 +28,17 @@ var top_left ={lat:-39.803796,lng:-73.269065};
 var bot_left ={lat:-39.856902,lng:-73.269065};
 var top_right={lat:-39.803796,lng:-73.182377};
 var bot_right={lat:-39.856902,lng:-73.182377};
-
-
-
-var d_lat=0.001,d_lng=0.005;
-
+var timeout=100;
+var d_lat=0.0025,d_lng=0.025;
 var sentido_lat=-1;
 var sentido_lng=1;
-
 var finished=false;
-
 var position;
 var table;
 var found=0;
 var iteraciones=0;
-
-var perc_x=0.0,perc_y=0.0;
-
+var perc_x=0.0,perc_y=0.0,perc_all=0.0;
 var map;
-//var paraderos=[];
 var paraderos = {};
 function init(){
 	log("~by fr4j4~");
@@ -74,13 +66,17 @@ function run(){
 	if(perc_x<0){perc_x=0;}
 	if(perc_x>100){perc_x=100;}
 	perc_x=perc_x.toFixed(2);
-	console.log(perc_x);
+	perc_y=(1-(position.lat()-bot_left.lat)/(top_left.lat- bot_left.lat))*100;
+
+	perc_all+=perc_y*(perc_x/1000.0);
+	//console.log(perc_all);
 	map.panTo(position);
 	//map.setZoom(17);
 	$('#bot_position').html('('+position.lat()+","+position.lng()+")");
 	if(iteraciones>=10){iteraciones=0;}
 	$('#contador_paraderos').html(found);
-	log("Buscando paraderos: "+perc_x+" %");
+	log("Buscando paraderos: ");
+	log(perc_y+"% ,"+perc_x+" %");
 	//log(position);
 	var request={
 		location:position,
@@ -91,11 +87,10 @@ function run(){
 	service = new google.maps.places.PlacesService($('#map2').get(0));//mapa falso
 	//service.nearbySearch(request, google_search_callback);
 	service.textSearch(request, google_search_callback);
-
 	var temp_lng=position.lng();
 	var temp_lat=position.lat();
-
 	var prev_lng=temp_lng,prev_lat=temp_lat;
+	
 	//comportamiento
 	//si esta entre top y bot
 	if(position.lat()<=top_left.lat && position.lat()>=bot_left.lat ){
@@ -132,7 +127,7 @@ function google_search_callback(results, status){
     }
   }
   if(!finished){
-  	setTimeout(function(){run();},250);
+  	setTimeout(function(){run();},timeout);
   }else{
   	log("Busqueda finalizada.");
   }
@@ -172,7 +167,7 @@ function initMap(){
 	log("inicializado mapa...");
 	map = new google.maps.Map(document.getElementById('map'), {
 	    center: {lat: top_left.lat, lng:top_left.lng},// -73.2505124},
-	    zoom: 16,
+	    zoom: 14,
 	    mapTypeId: google.maps.MapTypeId.HYBRID,
   	});
 
@@ -180,6 +175,7 @@ function initMap(){
 }
 
 function generateFile(){
+	$('#download_link').css('display','inline-block');
 	log("Generando archivo (espere) .....");
 	var f="";
 	for(key in paraderos){
