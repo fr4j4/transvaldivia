@@ -32,16 +32,24 @@
 					<button onclick="output_clear()" class="btn btn-sm btn-info">limpiar salida</button>
 				  	<div id="output" class="panel-body"></div>
 				</div>
+			<div class="col col-lg-12">
+					<div style="display:none" id="progress_container" class="progress">
+					  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="0"
+					  aria-valuemin="0" aria-valuemax="100" style="width:70%">
+					    <span id="progress_value"></span>
+					  </div>
+					</div>
+					
+						<button onclick="run()" id="start_button" class="btn btn-primary">Buscar paraderos!</button>
+					
 			</div>
-			</div>
-			<div class="col col-lg-6">
-				<button onclick="run()" class="btn btn-primary">Buscar paraderos!</button>
 			</div>
 			<div class="col col-lg-6">
 				<a class="btn btn-success" href="" id="download_link">Descargar archivo generado!</a>
 			</div>
 			<div>
 			</div>
+		</div>
 			<h3>Paraderos encontrados: <span id="contador_paraderos"></span></h3>
 			<div class="table-responsive">
 				<table id="table" class="table table-striped">

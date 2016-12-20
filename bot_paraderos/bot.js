@@ -29,7 +29,7 @@ var bot_left ={lat:-39.856902,lng:-73.269065};
 var top_right={lat:-39.803796,lng:-73.182377};
 var bot_right={lat:-39.856902,lng:-73.182377};
 var timeout=100;
-var d_lat=0.00125,d_lng=0.00125;
+var d_lat=0.000125,d_lng=0.25;
 var sentido_lat=-1;
 var sentido_lng=1;
 var finished=false;
@@ -40,6 +40,7 @@ var iteraciones=0;
 var perc_x=0.0,perc_y=0.0,perc_all=0.0;
 var map;
 var paraderos = {};
+var initLog=false;
 function init(){
 	log("~by fr4j4~");
 	finished=false;
@@ -57,6 +58,12 @@ function setLocation(lat,long){
 }
 
 function run(){
+	if(!initLog){
+		log("Buscando paraderos: ");
+		$('#start_button').css('display','none');
+		$('#progress_container').css('display','inline-block');
+		initLog=true;
+	}
 	//(top_right.lng - top_left.lng)
 	if(sentido_lng>0){
 		perc_x=(((position.lng()-top_left.lng)/(top_right.lng - top_left.lng))*100);
@@ -67,18 +74,19 @@ function run(){
 	if(perc_x>100){perc_x=100;}
 	perc_x=perc_x.toFixed(2);
 	perc_y=(1-(position.lat()-bot_left.lat)/(top_left.lat- bot_left.lat))*100;
+	
 	perc_y=perc_y.toFixed(2);
 
 	perc_all+=perc_y*(perc_x/1000.0);
 	//console.log(perc_all);
+
+	$('#progress_value').html(perc_y);
+	$('#progress').attr('aria-valuenow', perc_y).css('width',perc_y);
+
 	map.panTo(position);
-	//map.setZoom(17);
 	$('#bot_position').html('('+position.lat()+","+position.lng()+")");
 	if(iteraciones>=10){iteraciones=0;}
 	$('#contador_paraderos').html(found);
-	log("Buscando paraderos: ");
-	log(perc_y+"%.");
-	//log(position);
 	var request={
 		location:position,
 		radius:50000,
@@ -171,6 +179,9 @@ function initMap(){
 	    zoom: 17,
 	    maxZoom:18,
 	    minZoom:15,
+	    draggable: false,
+	    disableDefaultUI: true,
+	    mapTypeControl: false,
 	    mapTypeId: google.maps.MapTypeId.HYBRID,
   	});
 
