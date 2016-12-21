@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'transvaldivia.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'transvaldivia',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
+        'NAME': 'sql10150346',
+        'USER': 'sql10150346',
+        'PASSWORD': 'xzqfrKc3DX',
+        'HOST': 'sql10.freemysqlhosting.net',
     }
 }
 
