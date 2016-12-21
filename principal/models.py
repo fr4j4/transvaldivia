@@ -1,5 +1,4 @@
 from django.db import models
-
 from geoposition.fields import GeopositionField#gmaps
 
 # Create your models here.
