@@ -1,157 +1,20 @@
 {%extends "base.html"%}
-{% load staticfiles %}
 {%block title%}
 ValdiPar - Incio
 {%endblock%}
 {%block content%}
+{% load staticfiles %}
 <input type="hidden" id="latitude" value="0.0">
 <input type="hidden" id="longitude" value="0.0">
-
-
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg "
-></script>
 <script type="text/javascript">
-	var map;
-	var pinUser,pinStop;
-	var lat=-1,long=-1;
-	var first=true;
-	var json;
-
-	function getNearby(){
-		$.ajax(
-			{
-				url: "http://localhost:8000/API/nearby_stops/"+lat+","+long,
-				async: false,//importante
-				success: function(result){
-        		json=JSON.parse(JSON.stringify(result));
-
-
-    	},error: function (xhr, ajaxOptions, thrownError) {
-        console.log(xhr.status);
-        console.log(thrownError);
-      }
-
-
-    });	
-	}
-	
-	function getLocation() {
-		
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(getPos_callback,error,{enableHighAccuracy:true,timeout:60000, maximumAge:60000});
-	    } else {
-			alert("Su navegador no soporta geolocalización.");
-		}
-	}
-
-
-	function error(e){
-
-		var errors = { 
-	    	1: 'Permiso denegado',
-		    2: 'Posición no disponible',
-		    3: 'Tiempo de espera terminado'
-		};
-		//alert("Error al obtener datos del GPS\n["+errors[e.code]+"]");
-		$('#status').html("Error: "+errors[e.code]);
-	}
-
-	function getPos_callback(p){
-		lat=p.coords.latitude;
-		long=p.coords.longitude;
-		$('#latitude').val(lat);
-		$('#longitude').val(long);
-		$('#status').html("Posición obtenida con exito!");
-
-		if(first){
-			reset_map();
-			first=false;
-		}
-		getNearby();
-
-		if(json){
-			for(o in json.items){
-				var i=json.items[o];
-				var i_name=i.nombre;
-				var i_dist=i.dist;
-				var i_lat=parseFloat(i.lat);
-				var i_lng=parseFloat(i.lng);
-				console.log('lat:'+i_lat);
-				console.log('lng:'+i_lng);
-				console.log("");
-				var marker = new google.maps.Marker({
-				    position: {lat: i_lat, lng: i_lng},
-				    map: map,
-				    icon: pinStop,
-		  		});
-			}
-			//console.log(json.summary.latitude);
-		}
-
-		var marker = new google.maps.Marker({
-		    position: {lat: lat, lng: long},
-		    map: map,
-		    icon: pinUser,
-		    title: 'Usted está aquí!',
-  		});
-	}
-
-	function reset_map(){
-		google.maps.event.trigger(map, 'resize');
-		var lat=parseFloat($('#latitude').val());
-		var long=parseFloat($('#longitude').val());
-		if(map){
-			  var target = new google.maps.LatLng(location.lat,location.lng);
-			  map.panTo({lat: lat, lng: long});
-			  map.setZoom(17);
-		}
-	}
-	function initMap() {
-
-		$('#map_box').collapse();
-		$('#map').css('display','block');
-		var lati=parseFloat($('#latitude').val());
-		var lngi=parseFloat($('#longitude').val());
-		// Create a map object and specify the DOM element for display.
-
-		pinUser = new google.maps.MarkerImage(
-		    '{%static "img/placeholder.png"%}',
-		    null, /* size is determined at runtime */
-		    null, /* origin is 0,0 */
-		    null /* anchor is bottom center of the scaled image */
-		);
-
-		pinStop = new google.maps.MarkerImage(
-		    '{%static "img/placeholder2.png"%}',
-		    null, /* size is determined at runtime */
-		    null, /* origin is 0,0 */
-		    null, /* anchor is bottom center of the scaled image */
-		    new google.maps.Size(42, 68)
-		);
-
-		var styles = [{
-		featureType: "transit.station.bus",//esconder paraderos
-		stylers: [{
-		    visibility: "off"
-		  	}]
-		}];
-		var mapOptions = {
-			styles:styles,
-		    zoom: 8,
-		    center: {lat: lati, lng: lngi},
-		    mapTypeId:google.maps.MapTypeId.ROADMAP,
-		    mapTypeControlOptions: {
-		      mapTypeIds: ['map_style',]
-		    }
-		  };
-	 	map = new google.maps.Map(document.getElementById('map'));
-		map.setOptions(mapOptions);
-	}
+	var userMarkImage="{%static 'img/placeholder.png'%}"
+	var stopMarkImage="{%static 'img/placeholder2.png'%}"
+	var stopMarkImage2="{%static 'img/placeholder3.png'%}"
 </script>
-
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDesV0pveJzriPnvtbAl--z-rwImMoImwg"
+></script>
+<script type="text/javascript" src="{%static 'js/main.js'%}">
+</script>
 <!-- Modal -->
 <div id="modal_inicio" class="modal fade" role="dialog">
   <div class="modal-dialog modal-sm">
@@ -173,27 +36,35 @@ ValdiPar - Incio
 
   </div>
 </div>
-
 	<div class="well well-sm">
 		<div class="container">
 			<div id="status">Obteniendo información del GPS...</div>
 			
-			<div id="map_box">
+			<div id="map_box" class="col-lg-6">
 				<div style="display:none;width:100%;height:300px;" id="map"></div>
 				<button class="btn btn-default" onclick="reset_map()"l>Reiniciar mapa</button>
 			</div>
 			
+			<div class="col col-lg-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Información
+					</div>
+					  <div class="panel-body"><span id="resumen"></span></div>
+					</div>
+			</div>
+
 		</div>
 	</div>
 
 	<script type="text/javascript">
 		$( document ).ready(function() {
 			getLocation();
-			initMap();
+			//initMap();
 			setInterval(
 			function(){
 				getLocation();
-			},20000);
+			},60000);
 		});
 	</script>
 

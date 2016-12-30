@@ -1,0 +1,19 @@
+{%extends "base.html"%}
+{%block title%}
+Detalle de linea
+{%endblock%}
+{%block content%}
+<div class="container">
+	<div class="well">
+		<div id="content">
+			<div>Nombre de linea: <b>{{l.nombre}}</b></div>
+			<ul>
+				Recorridos:
+				{%for rec in r%}
+				<li><a href='#'>{{rec.nombre}}</a></li>
+				{%endfor%}
+			</ul>
+		</div>
+	</div>
+</div>
+{%endblock%}

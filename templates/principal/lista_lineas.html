@@ -1,0 +1,18 @@
+{%extends "base.html"%}
+{%block title%}
+Lista de lineas existentes
+{%endblock%}
+{%block content%}
+<div class="container">
+	<div class="well">
+		<div id="content">
+			<ul>Lineas existentes
+				{%for l in lineas%}
+				<li><a href="/linea/{{l.id}}">{{l.nombre}}</a></li>
+				{%endfor%}
+			</ul>
+		</div>
+	</div>
+</div>
+
+{%endblock%}

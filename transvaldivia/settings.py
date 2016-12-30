@@ -64,8 +64,9 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django.contrib.auth.context_processors.auth",
             ],
         },
     },
@@ -76,7 +77,7 @@ WSGI_APPLICATION = 'transvaldivia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -84,6 +85,16 @@ DATABASES = {
         'USER': 'sql10150346',
         'PASSWORD': 'xzqfrKc3DX',
         'HOST': 'sql10.freemysqlhosting.net',
+    }
+}
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'transvaldivia',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
     }
 }
 
